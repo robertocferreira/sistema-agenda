@@ -21,7 +21,7 @@ app.post('/logar', (req, res) => {
         const login = req.body.login;
         const senha = req.body.senha;
         const idUsuario = sistema.logar(login, senha);
-        const jsonRes = JSON.stringify(idUsuario);
+        const jsonRes = JSON.stringify({idUsuario : idUsuario});
         res.status(200).json(jsonRes);
     } catch (error) {
         res.status(400).json({ message: `${error.message}` });
