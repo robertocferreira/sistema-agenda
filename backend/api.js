@@ -38,7 +38,6 @@ app.get('/usuario/:idUsuario', (req, res) => {
         if (!usuario) {
             res.status(404).json({ message : 'Usuário não encontrado!' });
         }
-        //const jsonRes = JSON.stringify(usuario);
         res.status(200).json(usuario);
     } catch (error) {
         res.status(400).json({ message : `${error.message}` });
@@ -76,7 +75,6 @@ app.get('/contatos/:idUsuario', (req, res) => {
     try {
         const idUsuario = req.params.idUsuario;
         const usuario = sistema.buscarUsuario(idUsuario);
-        //const jsonRes = JSON.stringify(usuario.contatos);
         res.status(200).json(usuario);
     } catch (error) {
         res.status(400).json({ message : `${error.message}` });
@@ -93,7 +91,6 @@ app.get('/contato/:idUsuario/:idContato', (req, res) => {
         if (!contato) {
             res.status(404).json({ message : 'Contato não encontrado!' });
         }
-        //const jsonRes = JSON.stringify(contato);
         res.status(200).json(contato);
     } catch (error) {
         res.status(400).json({ message : `${error.message}` });
