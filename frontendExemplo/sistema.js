@@ -1,4 +1,4 @@
-const urlAPI = 'http://localhost:3333';
+const urlAPI = 'http://JFADE00000100393:3333';
 
 let idUsuario = localStorage.getItem('idUsuario');
 //Se o usuario estiver logada
