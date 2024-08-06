@@ -21,7 +21,7 @@ app.post('/logar', (req, res) => {
         const login = req.body.login;
         const senha = req.body.senha;
         const idUsuario = sistema.logar(login, senha);
-        const jsonRes = JSON.stringify({idUsuario : idUsuario});
+        const jsonRes = {idUsuario : idUsuario};
         res.status(200).json(jsonRes);
     } catch (error) {
         res.status(400).json({ message: `${error.message}` });
@@ -38,8 +38,8 @@ app.get('/usuario/:idUsuario', (req, res) => {
         if (!usuario) {
             res.status(404).json({ message : 'Usuário não encontrado!' });
         }
-        const jsonRes = JSON.stringify(usuario);
-        res.status(200).json(jsonRes);
+        //const jsonRes = JSON.stringify(usuario);
+        res.status(200).json(usuario);
     } catch (error) {
         res.status(400).json({ message : `${error.message}` });
     }
@@ -76,8 +76,8 @@ app.get('/contatos/:idUsuario', (req, res) => {
     try {
         const idUsuario = req.params.idUsuario;
         const usuario = sistema.buscarUsuario(idUsuario);
-        const jsonRes = JSON.stringify(usuario.contatos);
-        res.status(200).json(jsonRes);
+        //const jsonRes = JSON.stringify(usuario.contatos);
+        res.status(200).json(usuario);
     } catch (error) {
         res.status(400).json({ message : `${error.message}` });
     }
@@ -93,8 +93,8 @@ app.get('/contato/:idUsuario/:idContato', (req, res) => {
         if (!contato) {
             res.status(404).json({ message : 'Contato não encontrado!' });
         }
-        const jsonRes = JSON.stringify(contato);
-        res.status(200).json(jsonRes);
+        //const jsonRes = JSON.stringify(contato);
+        res.status(200).json(contato);
     } catch (error) {
         res.status(400).json({ message : `${error.message}` });
     }
@@ -158,5 +158,3 @@ app.delete('/contato/:idUsuario/:idContato', (req, res) => {
 app.listen(porta, () => {
     console.log(`app rodando da porta ${porta}`)
 })
-
-
