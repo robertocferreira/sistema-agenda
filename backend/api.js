@@ -75,7 +75,11 @@ app.get('/contatos/:idUsuario', (req, res) => {
     try {
         const idUsuario = req.params.idUsuario;
         const usuario = sistema.buscarUsuario(idUsuario);
-        res.status(200).json(usuario);
+        if (usuario){
+           return res.status(200).json(usuario.contatos);   
+        } else {
+            res.status(400).json({ message : 'Usuário não encontrado!' });
+        }
     } catch (error) {
         res.status(400).json({ message : `${error.message}` });
     }
