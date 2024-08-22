@@ -21,7 +21,8 @@ app.post('/logar', (req, res) => {
         const login = req.body.login;
         const senha = req.body.senha;
         const idUsuario = sistema.logar(login, senha);
-        const jsonRes = {idUsuario : idUsuario};
+        console.log(`Usuario ${idUsuario} logado!!!`);
+        const jsonRes = { idUsuario: idUsuario };
         res.status(200).json(jsonRes);
     } catch (error) {
         res.status(400).json({ message: `${error.message}` });
@@ -36,11 +37,12 @@ app.get('/usuario/:idUsuario', (req, res) => {
         const idUsuario = req.params.idUsuario;
         const usuario = sistema.buscarUsuario(idUsuario);
         if (!usuario) {
-            res.status(404).json({ message : 'Usuário não encontrado!' });
+            res.status(404).json({ message: 'Usuário não encontrado!' });
         }
+        console.log(`Buscaram pelo usuario ${usuario.nome} logado!!!`);
         res.status(200).json(usuario);
     } catch (error) {
-        res.status(400).json({ message : `${error.message}` });
+        res.status(400).json({ message: `${error.message}` });
     }
 })
 //Incluir um usuário
@@ -50,9 +52,10 @@ app.post('/usuario', (req, res) => {
         const login = req.body.login;
         const senha = req.body.senha;
         sistema.cadastrarUsuario(nome, login, senha);
-        res.status(201).json({ message : 'Usuário cadastrado!' });
+        console.log(`Usuario novo incluido: ${nome}, ${login}, ${senha}`);
+        res.status(201).json({ message: 'Usuário cadastrado!' });
     } catch (error) {
-        res.status(400).json({ message : `${error.message}` });
+        res.status(400).json({ message: `${error.message}` });
     }
 })
 //Alterar um usuário
@@ -63,9 +66,10 @@ app.put('/usuario', (req, res) => {
         const login = req.body.login;
         const senha = req.body.senha;
         sistema.alterarUsuario(idUsuario, nome, login, senha);
-        res.status(200).json({ message : 'Dados do usuário alterados com sucesso!' });
+        console.log(`Usuario alterado: ${nome}, ${login}, ${senha}`);
+        res.status(200).json({ message: 'Dados do usuário alterados com sucesso!' });
     } catch (error) {
-        res.status(400).json({ message : `${error.message}` });
+        res.status(400).json({ message: `${error.message}` });
     }
 })
 
@@ -75,13 +79,15 @@ app.get('/contatos/:idUsuario', (req, res) => {
     try {
         const idUsuario = req.params.idUsuario;
         const usuario = sistema.buscarUsuario(idUsuario);
-        if (usuario){
-           return res.status(200).json(usuario.contatos);   
+
+        if (usuario) {
+            console.log(`Buscaram pelos contatos do usuario ${usuario.nome}`);
+            return res.status(200).json(usuario.contatos);
         } else {
-            res.status(400).json({ message : 'Usuário não encontrado!' });
+            res.status(400).json({ message: 'Usuário não encontrado!' });
         }
     } catch (error) {
-        res.status(400).json({ message : `${error.message}` });
+        res.status(400).json({ message: `${error.message}` });
     }
 })
 
@@ -93,11 +99,12 @@ app.get('/contato/:idUsuario/:idContato', (req, res) => {
         const usuario = sistema.buscarUsuario(idUsuario);
         const contato = usuario.contatos[idContato];
         if (!contato) {
-            res.status(404).json({ message : 'Contato não encontrado!' });
+            res.status(404).json({ message: 'Contato não encontrado!' });
         }
+        console.log(`Buscaram pelo contato ${idContato} do usuario ${usuario.nome}`); 
         res.status(200).json(contato);
     } catch (error) {
-        res.status(400).json({ message : `${error.message}` });
+        res.status(400).json({ message: `${error.message}` });
     }
 })
 
@@ -115,10 +122,12 @@ app.post('/contato', (req, res) => {
         const email = req.body.email;
 
         usuario.adicionarContato(nome, telefone, endereco, email);
+        
+        console.log(`Adicionaram o contato ${nome}, ${telefone} ao usuário ${usuario.nome}`); 
 
-        res.status(201).json({ message : 'Contato cadastrado!' });
+        res.status(201).json({ message: 'Contato cadastrado!' });
     } catch (error) {
-        res.status(400).json({ message : `${error.message}` });
+        res.status(400).json({ message: `${error.message}` });
     }
 })
 
@@ -129,16 +138,17 @@ app.put('/contato', (req, res) => {
         const idContato = req.body.idContato;
 
         const usuario = sistema.buscarUsuario(idUsuario);
-                
+
         const nome = req.body.nome;
         const telefone = req.body.telefone;
         const endereco = req.body.endereco;
         const email = req.body.email;
 
-        usuario.alterarContato(idContato, nome, telefone, endereco, email)
-        res.status(200).json({ message : 'Dados do contato alterados com sucesso!' });
+        usuario.alterarContato(idContato, nome, telefone, endereco, email);
+        console.log(`Alteraram o contato ${nome}, ${telefone} do usuário ${usuario.nome}`); 
+        res.status(200).json({ message: 'Dados do contato alterados com sucesso!' });
     } catch (error) {
-        res.status(400).json({ message : `${error.message}` });
+        res.status(400).json({ message: `${error.message}` });
     }
 })
 
@@ -149,9 +159,10 @@ app.delete('/contato/:idUsuario/:idContato', (req, res) => {
         const idContato = req.params.idContato;
         const usuario = sistema.buscarUsuario(idUsuario);
         usuario.removerContato(idContato);
-        res.status(200).json({ message : 'Contato removido!' });
+        console.log(`Alteraram o contato ${idContato} do usuário ${usuario.nome}`); 
+        res.status(200).json({ message: 'Contato removido!' });
     } catch (error) {
-        res.status(400).json({ message : `${error.message}` });
+        res.status(400).json({ message: `${error.message}` });
     }
 })
 

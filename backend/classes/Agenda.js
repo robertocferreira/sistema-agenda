@@ -8,6 +8,8 @@ export default class Agenda {
     }
 
     /*verifica se já existe um usuário como login informado */
+    //Se já existir retorna o usuário com o login informado
+    //Caso contrário retorna nulo
     jaExisteLogin(login){
         /*
         for (let ind = 0; ind < usuarios.length; ind++) {
@@ -19,9 +21,9 @@ export default class Agenda {
         */
         const usuarios = this.#usuarios
         if (usuarios.find((usuario) => usuario.login == login)){
-            return true;
+            return usuario;
         }
-        return false;
+        return null;
     }
 
     cadastrarUsuario(nome, login, senha){
@@ -46,7 +48,8 @@ export default class Agenda {
         }
         
         //Se o novo login já é usado por outro usuário
-        if (this.jaExisteLogin(login)){
+        const usuLogin = this.jaExisteLogin(login)
+        if (usuLogin && usuLogin.idUsuario != idUsuario){
             throw new Error('Não é possível mudar o login. O novo login já é utilizado por outro usuário');
         }
 

@@ -133,6 +133,7 @@ export default class Usuario{
             idUsuario : this.#idUsuario,
             nome : this.#nome,
             login : this.#login,
+            senha : this.#senha,
         }
     }
 }
