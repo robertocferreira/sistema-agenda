@@ -57,3 +57,26 @@ export async function getUsuario(){
 
     return null;
 }
+
+export async function getContatos(){
+    if (idUsuario){
+        try {
+            const resposta = await fetch(`${urlAPI}/contatos/${idUsuario}`);
+            const info = await resposta.json();
+
+            if (resposta.status == 200){    
+                return info;
+            } else {
+                alert(info.message);
+            }
+        } catch (e){
+            alert('Servidor fora do ar!!!')
+        }
+    }
+
+    return [];
+}
+
+export async function alterarUsuario(){
+    
+}
